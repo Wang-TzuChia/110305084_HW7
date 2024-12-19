@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Profile</title>
+  <link rel="stylesheet" href="110305084_hw7.css">
+  <script>
+    // JavaScript for Requirement #1: Editable Name
+    let isEditing = false;
+
+    function toggleEdit() {
+      const nameElement = document.getElementById('editableName');
+      const button = document.getElementById('editButton');
+
+      if (isEditing) {
+        // Save state: update the name text and toggle back to "edit"
+        const input = document.getElementById('nameInput');
+        nameElement.textContent = input.value;
+        button.textContent = 'Edit';
+        input.remove();
+      } else {
+        // Edit state: replace the name with an input field
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'nameInput';
+        input.value = nameElement.textContent;
+        nameElement.textContent = '';
+        nameElement.appendChild(input);
+        button.textContent = 'Save';
+      }
+
+      isEditing = !isEditing;
+    }
+
+    // JavaScript for Requirement #2: Add Music
+    function addMusicForm() {
+      const formContainer = document.getElementById('musicFormContainer');
+      formContainer.innerHTML = `
+        <div>
+          <input id="musicLink" type="url" placeholder="Enter music link" required />
+          <input id="musicName" type="text" placeholder="Enter music name" required />
+          <button onclick="submitMusic()">Submit</button>
+        </div>
+      `;
+    }
+
+    function submitMusic() {
+      const link = document.getElementById('musicLink').value;
+      const name = document.getElementById('musicName').value;
+
+      if (!link || !name) {
+        alert('Please fill out all fields.');
+        return;
+      }
+
+      const musicGrid = document.querySelector('.music-grid');
+      const newMusic = document.createElement('a');
+      newMusic.href = link;
+      newMusic.target = '_blank';
+      newMusic.innerHTML = `
+        <img src="image/youtubelogo.png" alt="${name}" />
+        <p>${name}</p>
+      `;
+      musicGrid.appendChild(newMusic);
+
+      // Clear form
+      document.getElementById('musicFormContainer').innerHTML = '';
+    }
+  </script>
+</head>
+<body>
+  <div class="main-container">
+    <!-- Left Panel -->
+    <div class="left-panel">
+      <div class="photo-panel"></div>
+      <div class="text-content">
+        <div class="text-content-inner">
+          <h2 id="editableName">Anita Wang</h2>
+          <button id="editButton" onclick="toggleEdit()">Edit</button>
+          <h3>ABOUT ME</h3>
+          <p>
+            I am a senior in the Department of Business Administration at National Chengchi University.
+            I am very interested in studying programming, computer science fundamentals and supply chain management.
+            I have experience in writing Java, HTML, CSS and Python.
+          </p>
+          <h3>Contact</h3>
+          <p><a href="mailto:110305084@g.nccu.edu.tw" style="color: white;">110305084@g.nccu.edu.tw</a></p>
+        </div>
+       <img src="logo_en.png" alt="NCCU Logo" class="nccu-logo">
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+      <section>
+        <h2>Education</h2>
+        <div class="education-item">
+          <div class="year">2022 - now</div>
+          <div class="description">National Chengchi University, Department of Business Administration</div>
+        </div>
+        <div class="education-item">
+          <div class="year">2017 - 2022</div>
+          <div class="description">New Taipei City Banqiao Senior High School<br>Participated in Rotary Club</div>
+        </div>
+        <div class="education-item">
+          <div class="year">2014 - 2017</div>
+          <div class="description">Yuteh Junior High School<br>Started to get interested in Management</div>
+        </div>
+      </section>
+      <section>
+        <h2>Homework List</h2>
+        <ul>
+          <li>HW1 - <a href="https://github.com/Wang-TzuChia/HW2.git" target="_blank">https://github.com/Wang-TzuChia/HW2.git</a></li>
+          <li>HW2 - <a href="https://github.com/Wang-TzuChia/HW2-2.git" target="_blank">https://github.com/Wang-TzuChia/HW2-2.git</a></li>
+          <li>HW3 - <a href="https://github.com/Wang-TzuChia/HW3.git" target="_blank">https://github.com/Wang-TzuChia/HW3.git</a></li>
+        </ul>
+      </section>
+      <section>
+        <h2>Favorite Music</h2>
+        <div id="musicFormContainer"></div>
+        <button onclick="addMusicForm()">Add Music</button>
+        <div class="music-grid">
+          <a href="https://www.youtube.com/watch?v=Lhel0tzHE08">
+            <img src="youtubelogo.png" alt="再見">
+            <p>再見</p>
+          </a>
+          <a href="https://youtu.be/DYptgVvkVLQ?si=GAkIqyPZxfmMjYYW">
+            <img src="youtubelogo.png" alt="倒數">
+            <p>倒數</p>
+          </a>
+          <a href="https://www.youtube.com/watch?v=4OqXWzekVw4">
+            <img src="youtubelogo.png" alt="喜歡你">
+            <p>喜歡你</p>
+          </a>
+          <a href="https://www.youtube.com/watch?v=I1Kx8Ii4eYk">
+            <img src="youtubelogo.png" alt="岩石裡的花">
+            <p>岩石裡的花</p>
+          </a>
+        </div>
+        <p class="note">Note: 鄧紫棋是鐵肺歌后，聽他唱歌太紓壓啦! </p>
+      </section>
+    </div>
+  </div>
+</body>
+</html>
